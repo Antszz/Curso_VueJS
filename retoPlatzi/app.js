@@ -2,10 +2,31 @@ new Vue({
     el: '#app',
     
     data () {
-      return {}
+      return {
+        courses:[],
+        title: '',
+        time: 0,
+        tTime: 0
+      }
     },
     
-    computed: {},
+    computed: {
+      totalTime(){
+        return this.tTime
+      }
+    },
     
-    methods: {}
+    methods: {
+      addCourse(){
+        this.tTime = Number(this.tTime) + Number(this.time)
+        curse={
+          title:this.title,
+          time:this.time
+        }
+        this.courses.push(curse)
+        this.title = ''
+        this.time = 0
+        console.log(this.courses)
+      }
+    }
   })

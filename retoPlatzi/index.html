@@ -1,29 +1,41 @@
-<div id="app">
-    <h1>
-      Mis Cursos de Platzi💚
-    </h1>
-      <p>
-        <input type="text" placeholder="Titulo del curso"/>
-      </p>
-      <p>
-        <input type="number" placeholder="Horas"/>
-      </p>
-      <p>
-        <button>Guardar Curso</button>
-      </p>
-    </fieldset>
-    <div>
-      <h3>Lista de Cursos</h3>
-      <p class="red">Aun no has realizado cursos</p>
-      <div>
-        <ol>
-          <!-- Lista de cursos -->
-        </ol>
-        <hr/>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <div id="app">
+      <h1>
+        Mis Cursos de Platzi💚
+      </h1>
         <p>
-          Llevo <strong>{{ totalTime }}</strong> horas aprendiendo en Platzi.
-          <b>#NuncaParesDeAprender 💚</b>
+          <input v-model=title type="text" placeholder="Titulo del curso"/>
         </p>
+        <p>
+          <input v-model=time type="number" placeholder="Horas"/>
+        </p>
+        <p>
+          <button v-on:click=addCourse>Guardar Curso</button>
+        </p>
+      </fieldset>
+      <div>
+        <h3>Lista de Cursos</h3>
+        <p v-show="totalTime==0" class="red">Aun no has realizado cursos</p>
+        <div>
+          <ol>
+            <li v-for="c in courses">{{ c }}</li>
+          </ol>
+          <hr/>
+          <p v-if="totalTime>0">
+            Llevo <strong>{{ totalTime }}</strong> horas aprendiendo en Platzi.
+            <b>#NuncaParesDeAprender 💚</b>
+          </p>
+          <p v-else>
+            No existen cursos
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
