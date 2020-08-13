@@ -22,6 +22,9 @@ Vue.component('CoinDetail',{
   methods: {
     toggleShowPrices(){
       this.showPrices = !this.showPrices
+      this.$emit('change-color',
+        this.showPrices ? 'FF96C8' : '3D3D3D'
+      );
     }
   },
   
@@ -29,10 +32,7 @@ Vue.component('CoinDetail',{
   <div>
     <img @mouseout="toggleShowPrices" @mouseover="toggleShowPrices" v-bind:src = "coin.img" v-bind:alt="coin.name">
     <h1 v-bind:class="coin.changePercent > 0 ? 'green' : 'red'">
-      {{coin.title}}
-      <span v-if="coin.changePercent > 0" >👍</span>
-      <span v-else-if="coin.changePercent < 0" >😒</span>
-      <span v-else>🤞</span>
+      {{title}}
 
       <span v-show="coin.changePercent > 0" >👍</span>
       <span v-show="coin.changePercent < 0" >😒</span>
@@ -42,6 +42,9 @@ Vue.component('CoinDetail',{
     </h1>
     <input type="number" v-model="value">
     <span>{{ convertedValue }}</span>
+
+    <slot name="text"></slot>
+    <slot name="link"></slot>
 
     <ul v-show=showPrices>
       <li v-bind:class="{orange: p.value === coin.price, red:p.value < coin.price, green: p.value > coin.price}" v-for="(p, i) in coin.pricesWithDays" v-bind:key="p.day">
@@ -77,11 +80,10 @@ new Vue({
     }
   },
 
-  // methods: {
-  //   toggleShowPrices(){
-  //     this.showPrices = !this.showPrices
-  //     this.color = this.color.split('').reverse().join('')
-  //   }
-  // }
+  methods: {
+    updateColor(color){
+      this.color = color || this.color.split('').reverse().join('')
+    }
+  }
 
 })
